@@ -1,0 +1,478 @@
+// CSS reset
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  box-sizing: border-box;
+  height: 100%;
+}
+html {
+  font-size: 62.5%;
+}
+
+// variables --------------------
+
+//colours
+
+// for page background
+
+$bg-col-01: #ffefe9;
+$bg-col-02: #cdf0ff;
+
+// theme colour palette
+$col-pal-01: #26273b;
+$col-pal-02: #274472;
+$col-pal-03: #d7762e;
+$col-pal-04: #4171be;
+
+// subtle colours to replace primary black and white
+$soft-black: #02261d;
+$soft-white: #f3fffc;
+
+// layout -----------------------
+
+// the <main> element
+.main {
+  align-items: center;
+  background-image: linear-gradient(to bottom right, $bg-col-01, $bg-col-02);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 3rem 0 5rem;
+  width: 100%;
+}
+
+// footer
+.footer {
+  background-color: $col-pal-01;
+  padding: 1rem;
+}
+
+// holding intro and form section
+.container {
+  height: 30rem;
+  min-width: 25rem;
+  position: relative;
+
+  // when the 'sign up now' button is clicked
+  // the container will expand centrally
+  &--expand {
+    animation: expand 0.5s forwards;
+  }
+}
+
+// intro section
+.intro {
+  animation: show 1s forwards;
+  height: 30rem;
+  left: 0;
+  position: absolute;
+  width: 25rem;
+  z-index: 1;
+
+  // when 'sign up now' is clicked:
+  // the intro section will slightly shrink
+  // the right border will form a chevron shape
+  &--chevron {
+    animation: chevron 0.3s forwards;
+  }
+
+  // to hold main heading and 'sign up' button
+  // it is also to add transparent overlay on the video
+  &__container {
+    align-items: center;
+    background: linear-gradient(
+      to bottom right,
+      rgba($col-pal-03, 0.9),
+      rgba($col-pal-02, 0.8),
+      rgba($col-pal-01, 0.9)
+    );
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+  }
+
+  // video background
+  &__video {
+    height: 100%;
+    left: 0;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
+
+// form section (excluding the <form> element)
+.form {
+  align-items: center;
+  background-color: transparent;
+  display: flex;
+  height: 30rem;
+  position: absolute;
+  right: 0;
+  width: 25rem;
+
+  // when the 'sign up now' button is clicked
+  // the container will expand
+  &--expand {
+    animation: expand 0.5s forwards;
+  }
+
+  // for form section
+  // the inner container is created
+  // for enabling vertical center aligning
+  // as the main form container's position
+  // is set to absolute (removing the flow)
+  &__inner-container {
+    align-items: flex-end;
+    background-color: $soft-white;
+    box-shadow: -0.025rem 2.7rem 6.6rem -3.2rem rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-flow: column nowrap;
+    height: 29.5rem;
+    padding: 1.5rem 2.5rem;
+    width: 25rem;
+
+    // when the 'sign up now' button is clicked
+    // the container will expand
+    &--expand {
+      animation: expand 0.5s forwards;
+    }
+  }
+}
+
+// typography -------------------
+
+// apply styles to all text unless overridden below
+body {
+  color: $soft-black;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+// headings
+.heading {
+  // main heading (in intro section)
+  &__primary {
+    color: $soft-white;
+    display: flex;
+    flex-flow: column nowrap;
+    font-family: "Barlow", sans-serif;
+    margin-top: 7rem;
+    opacity: 1;
+    padding-bottom: 1rem;
+    text-transform: uppercase;
+    transition: all 0.2s;
+
+    // for 'Fancy taking'
+    &--top {
+      animation: blur 0.5s 0.8s backwards;
+      font-size: 1.8rem;
+      font-weight: 400;
+      letter-spacing: 0.15rem;
+      text-align: center;
+    }
+
+    // for 'Scuba diving?'
+    &--bottom {
+      animation: slideRight 0.5s 0.8s backwards;
+      font-size: 2.5rem;
+      font-style: italic;
+      font-weight: 700;
+      margin-top: -1.1rem;
+    }
+  }
+
+  // for 'Enter details'
+  &__secondary {
+    color: $col-pal-04;
+    display: none;
+    font-family: "Barlow", sans-serif;
+    font-size: 2.5rem;
+    font-style: italic;
+    font-weight: 700;
+    opacity: 0;
+    padding-bottom: 2rem;
+    text-transform: uppercase;
+    width: 65%;
+
+    &--slideRight {
+      animation: slideRight 0.5s 0.5s forwards;
+    }
+  }
+}
+
+// footer text
+.footer-text {
+  color: $soft-white;
+  text-align: center;
+  width: 100%;
+}
+
+// components -------------------
+
+// buttons
+
+.btn {
+  // for 'Sign up now' in intro section
+  &__intro {
+    animation: blur 0.5s 0.8s backwards;
+    background-color: transparent;
+    border: 0.25rem $soft-white solid;
+    color: $soft-white;
+    font-family: "Open Sans", sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.3rem;
+    outline: none;
+    overflow: hidden;
+    padding: 0.75rem 0;
+    position: relative;
+    text-transform: uppercase;
+    width: 100%;
+
+    // the shine effect in initial state
+    &::before {
+      background-color: $soft-white;
+      content: "";
+      filter: blur(1rem);
+      height: 100%;
+      left: 0;
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      transform: translateX(-50%) scaleY(1.1);
+      transition: all 0.5s ease-in-out;
+      width: 40%;
+      z-index: -1;
+    }
+
+    // for shine effect in hover state
+    &:hover::before {
+      opacity: 1;
+      transform: translateX(300%);
+    }
+
+    // container is used for javascript purpose
+    // it is to hide the button once it's clicked
+    &-container {
+      margin-top: 5rem;
+      width: 65%;
+    }
+  }
+
+  // the 'submit' button in the form section
+  &__submit {
+    border: none;
+    box-shadow: none;
+    color: $col-pal-02;
+    font-family: "Open Sans", sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    margin-top: 1rem;
+    overflow: hidden;
+    padding: 1.2rem;
+    position: relative;
+    text-transform: uppercase;
+    transform: translateY(0rem) scale(1);
+    transition: all 0.3s;
+    width: 100%;
+
+    // the embossed effect in initial state
+    &::before {
+      background: linear-gradient(to bottom right, $soft-white, $bg-col-02);
+      content: "";
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      transform: translate(0);
+      transition: all 0.3s;
+      width: 100%;
+      z-index: -1;
+    }
+
+    // the embossed effect in hover state
+    &:hover {
+      box-shadow: -0.1rem 1.7rem 6.6rem -1.2rem rgba(0, 0, 0, 0.5);
+      color: $col-pal-04;
+      transform: translateY(-0.2rem) scale(1.05);
+
+      &::before {
+        transform: translate(100%, 100%);
+      }
+    }
+
+    // to remove the default outline when the button is focused
+    &:focus,
+    &:focus-within {
+      border: none;
+      outline: none;
+    }
+  }
+}
+
+//---------------------------------
+
+// form
+
+// the form section
+.form {
+  // the <form> element
+  &__main-form-container {
+    display: none;
+    opacity: 0;
+    width: 65%;
+  }
+
+  // a group container holding the label and input element
+  // the last group container is to not have this property
+  &__group:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+
+  // the form input element in initial state
+  &__input {
+    background-color: transparent;
+    border: none;
+    border-bottom: solid 0.1rem $col-pal-03;
+    box-shadow: none;
+    color: $col-pal-04;
+    display: block;
+    font-family: "Open Sans", sans-serif;
+    font-size: 1.5rem;
+    padding: 1rem 1.5rem;
+    transform: scale(1);
+    transition: all 0.3s;
+    width: 100%;
+  }
+
+  // the form input element in focus state
+  &__input:focus,
+  &__input:focus-within {
+    background-color: #fff;
+    border: none;
+    box-shadow: -0.1rem 1.7rem 6.6rem -0.2rem rgba(0, 0, 0, 0.2);
+    color: $col-pal-03;
+    outline: none;
+  }
+}
+
+// animations -------------------
+
+// keyframes=====================
+
+// to fade in and blur elements
+@keyframes blur {
+  0% {
+    filter: blur(2rem);
+    opacity: 0;
+  }
+  100% {
+    filter: blur(0rem);
+    opacity: 1;
+  }
+}
+
+// for intro section
+// to add chevron and slight shrink to intro section
+@keyframes chevron {
+  0% {
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 100% 100%, 0 100%);
+    width: 25rem;
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 80% 50%, 100% 100%, 0 100%);
+    width: 20rem;
+  }
+}
+
+//---------------------------------
+
+// for main and form containers
+// Where the container expand
+@keyframes expand {
+  0% {
+    width: 25rem;
+  }
+  100% {
+    width: 60rem;
+  }
+}
+
+//---------------------------------
+
+// to fade and blur out elements
+@keyframes hide {
+  0% {
+    display: block;
+    filter: blur(0rem);
+    opacity: 1;
+  }
+
+  100% {
+    display: none;
+    filter: blur(2rem);
+    opacity: 0;
+  }
+}
+
+//---------------------------------
+
+// to fade in elements
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+//---------------------------------
+
+// to slide right, 'un-blur' and fade in
+@keyframes slideRight {
+  0% {
+    filter: blur(2rem);
+    opacity: 0;
+    transform: translateX(-3rem);
+  }
+
+  80% {
+    filter: blur(0rem);
+    opacity: 1;
+    transform: translateX(1rem);
+  }
+
+  100% {
+    filter: blur(0rem);
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+//---------------------------------
+
+// reusable classes
+
+.hide {
+  animation: hide 0.3s forwards;
+}
+.show {
+  animation: show 0.3s 0.5s forwards;
+}
